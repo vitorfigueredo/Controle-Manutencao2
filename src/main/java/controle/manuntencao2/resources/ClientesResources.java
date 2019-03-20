@@ -1,4 +1,4 @@
-package controle.manuntencao.resources;
+package controle.manuntencao2.resources;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -14,22 +14,22 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import controle.manuntencao.entidades.EstadosServ;
-import controle.manuntencao.services.EstadosServServices;
-import controle.manuntencao.utils.MensagemResposta;
+import controle.manuntencao2.entidades.Clientes;
+import controle.manuntencao2.services.ClientesServices;
+import controle.manuntencao2.utils.MensagemResposta;
 
-@Path("estadoservs")
+@Path("clientes")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class EstadosServResources {
+public class ClientesResources {
 	
 	@Inject
-	EstadosServServices EstadoServService;
+	ClientesServices ClientesService;
 	
 	@GET
 	public Response getAll() {
 		try {
-			return Response.ok(EstadoServService.getTodasEstadosServ()).status(Status.OK).build();
+			return Response.ok(ClientesService.getTodasClientes()).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.OK).build();
 		}
@@ -37,9 +37,9 @@ public class EstadosServResources {
 	
 	@GET
 	@Path("/{id}")
-	public Response getId(@PathParam("id") Integer idEstadoServ) {
+	public Response getId(@PathParam("id") Integer idCliente) {
 		try {
-			return Response.ok(EstadoServService.getEstadoServById(idEstadoServ)).status(Status.OK).build();
+			return Response.ok(ClientesService.getClienteById(idCliente)).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();
 		}
@@ -47,27 +47,27 @@ public class EstadosServResources {
 	
 	@GET
 	@Path("/busca")
-	public Response getNome(@QueryParam("nome") String nomeEstadoServ) {
+	public Response getNome(@QueryParam("nome") String nomeCliente) {
 		try {
-			return Response.ok(EstadoServService.getEstadoServByName(nomeEstadoServ)).status(Status.OK).build();
+			return Response.ok(ClientesService.getClienteByName(nomeCliente)).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();
 		}
 	}
 	
 	@POST
-	public Response save(EstadosServ estadoserv) {
+	public Response save(Clientes cliente) {
 		try {
-			return Response.ok(EstadoServService.saveEstadoServ(estadoserv)).status(Status.CREATED).build();
+			return Response.ok(ClientesService.saveCliente(cliente)).status(Status.CREATED).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();
 		}
 	}
 	
 	@PUT
-	public Response update(EstadosServ estadoserv) {
+	public Response update(Clientes cliente) {
 		try {
-			return Response.ok(EstadoServService.atualizarEstadoServ(estadoserv)).status(Status.OK).build();
+			return Response.ok(ClientesService.atualizarCliente(cliente)).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();
 		}
@@ -75,9 +75,9 @@ public class EstadosServResources {
 	
 	@DELETE
 	@Path("{id}")
-	public Response deletar(@PathParam("id") Integer idEstadoServ) {
+	public Response deletar(@PathParam("id") Integer idCliente) {
 		try {
-			EstadoServService.deleteEstadoServ(idEstadoServ);
+			ClientesService.deleteCliente(idCliente);
 			return Response.ok(new MensagemResposta("Operação completada com sucesso!!")).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();

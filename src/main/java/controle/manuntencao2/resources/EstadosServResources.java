@@ -1,4 +1,4 @@
-package controle.manuntencao.resources;
+package controle.manuntencao2.resources;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -14,22 +14,22 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import controle.manuntencao.entidades.Equipamentos;
-import controle.manuntencao.services.EquipamentosServices;
-import controle.manuntencao.utils.MensagemResposta;
+import controle.manuntencao2.entidades.EstadosServ;
+import controle.manuntencao2.services.EstadosServServices;
+import controle.manuntencao2.utils.MensagemResposta;
 
-@Path("equipamentos")
+@Path("estadoservs")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class EquipamentosResources {
+public class EstadosServResources {
 	
 	@Inject
-	EquipamentosServices EquipamentosService;
+	EstadosServServices EstadoServService;
 	
 	@GET
 	public Response getAll() {
 		try {
-			return Response.ok(EquipamentosService.getTodasEquipamentos()).status(Status.OK).build();
+			return Response.ok(EstadoServService.getTodasEstadosServ()).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.OK).build();
 		}
@@ -37,9 +37,9 @@ public class EquipamentosResources {
 	
 	@GET
 	@Path("/{id}")
-	public Response getId(@PathParam("id") Integer idEquipamento) {
+	public Response getId(@PathParam("id") Integer idEstadoServ) {
 		try {
-			return Response.ok(EquipamentosService.getEquipamentoById(idEquipamento)).status(Status.OK).build();
+			return Response.ok(EstadoServService.getEstadoServById(idEstadoServ)).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();
 		}
@@ -47,27 +47,27 @@ public class EquipamentosResources {
 	
 	@GET
 	@Path("/busca")
-	public Response getNome(@QueryParam("nome") String nomeEquipamento) {
+	public Response getNome(@QueryParam("nome") String nomeEstadoServ) {
 		try {
-			return Response.ok(EquipamentosService.getEquipamentoByName(nomeEquipamento)).status(Status.OK).build();
+			return Response.ok(EstadoServService.getEstadoServByName(nomeEstadoServ)).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();
 		}
 	}
 	
 	@POST
-	public Response save(Equipamentos equipamento) {
+	public Response save(EstadosServ estadoserv) {
 		try {
-			return Response.ok(EquipamentosService.saveEquipamento(equipamento)).status(Status.CREATED).build();
+			return Response.ok(EstadoServService.saveEstadoServ(estadoserv)).status(Status.CREATED).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();
 		}
 	}
 	
 	@PUT
-	public Response update(Equipamentos equipamento) {
+	public Response update(EstadosServ estadoserv) {
 		try {
-			return Response.ok(EquipamentosService.atualizarEquipamento(equipamento)).status(Status.OK).build();
+			return Response.ok(EstadoServService.atualizarEstadoServ(estadoserv)).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();
 		}
@@ -75,9 +75,9 @@ public class EquipamentosResources {
 	
 	@DELETE
 	@Path("{id}")
-	public Response deletar(@PathParam("id") Integer idEquipamento) {
+	public Response deletar(@PathParam("id") Integer idEstadoServ) {
 		try {
-			EquipamentosService.deleteEquipamento(idEquipamento);
+			EstadoServService.deleteEstadoServ(idEstadoServ);
 			return Response.ok(new MensagemResposta("Operação completada com sucesso!!")).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();

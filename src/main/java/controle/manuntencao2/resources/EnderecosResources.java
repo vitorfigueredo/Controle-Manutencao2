@@ -1,4 +1,4 @@
-package controle.manuntencao.resources;
+package controle.manuntencao2.resources;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -14,22 +14,22 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import controle.manuntencao.entidades.Usuarios;
-import controle.manuntencao.services.UsuariosServices;
-import controle.manuntencao.utils.MensagemResposta;
+import controle.manuntencao2.entidades.Enderecos;
+import controle.manuntencao2.services.EnderecosServices;
+import controle.manuntencao2.utils.MensagemResposta;
 
-@Path("usuarios")
+@Path("enderecos")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class UsuariosResources {
+public class EnderecosResources {
 	
 	@Inject
-	UsuariosServices UsuariosService;
+	EnderecosServices EnderecosService;
 	
 	@GET
 	public Response getAll() {
 		try {
-			return Response.ok(UsuariosService.getTodasUsuarios()).status(Status.OK).build();
+			return Response.ok(EnderecosService.getTodasEnderecos()).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.OK).build();
 		}
@@ -37,9 +37,9 @@ public class UsuariosResources {
 	
 	@GET
 	@Path("/{id}")
-	public Response getId(@PathParam("id") Integer idUsuario) {
+	public Response getId(@PathParam("id") Integer idEndereco) {
 		try {
-			return Response.ok(UsuariosService.getUsuarioById(idUsuario)).status(Status.OK).build();
+			return Response.ok(EnderecosService.getEnderecoById(idEndereco)).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();
 		}
@@ -47,27 +47,27 @@ public class UsuariosResources {
 	
 	@GET
 	@Path("/busca")
-	public Response getNome(@QueryParam("nome") String nomeUsuario) {
+	public Response getNome(@QueryParam("nome") String nomeEndereco) {
 		try {
-			return Response.ok(UsuariosService.getUsuarioByName(nomeUsuario)).status(Status.OK).build();
+			return Response.ok(EnderecosService.getEnderecoByCep(nomeEndereco)).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();
 		}
 	}
 	
 	@POST
-	public Response save(Usuarios usuario) {
+	public Response save(Enderecos endereco) {
 		try {
-			return Response.ok(UsuariosService.saveUsuario(usuario)).status(Status.CREATED).build();
+			return Response.ok(EnderecosService.saveEndereco(endereco)).status(Status.CREATED).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();
 		}
 	}
 	
 	@PUT
-	public Response update(Usuarios usuario) {
+	public Response update(Enderecos endereco) {
 		try {
-			return Response.ok(UsuariosService.atualizarUsuario(usuario)).status(Status.OK).build();
+			return Response.ok(EnderecosService.atualizarEndereco(endereco)).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();
 		}
@@ -75,9 +75,9 @@ public class UsuariosResources {
 	
 	@DELETE
 	@Path("{id}")
-	public Response deletar(@PathParam("id") Integer idUsuario) {
+	public Response deletar(@PathParam("id") Integer idEndereco) {
 		try {
-			UsuariosService.deleteUsuario(idUsuario);
+			EnderecosService.deleteEndereco(idEndereco);
 			return Response.ok(new MensagemResposta("Operação completada com sucesso!!")).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();

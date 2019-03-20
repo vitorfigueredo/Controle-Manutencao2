@@ -1,4 +1,4 @@
-package controle.manuntencao.resources;
+package controle.manuntencao2.resources;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -9,26 +9,27 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import controle.manuntencao.entidades.OrdensServicos;
-import controle.manuntencao.services.OrdensServicosServices;
-import controle.manuntencao.utils.MensagemResposta;
+import controle.manuntencao2.entidades.Usuarios;
+import controle.manuntencao2.services.UsuariosServices;
+import controle.manuntencao2.utils.MensagemResposta;
 
-@Path("ordens")
+@Path("usuarios")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class OrdensServicosResources {
+public class UsuariosResources {
 	
 	@Inject
-	OrdensServicosServices ordemService;
+	UsuariosServices UsuariosService;
 	
 	@GET
 	public Response getAll() {
 		try {
-			return Response.ok(ordemService.getTodasOrdensServicos()).status(Status.OK).build();
+			return Response.ok(UsuariosService.getTodasUsuarios()).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.OK).build();
 		}
@@ -36,28 +37,37 @@ public class OrdensServicosResources {
 	
 	@GET
 	@Path("/{id}")
-	public Response getId(@PathParam("id") Integer idOrdensServicos) {
+	public Response getId(@PathParam("id") Integer idUsuario) {
 		try {
-			return Response.ok(ordemService.getOrdensServicosById(idOrdensServicos)).status(Status.OK).build();
+			return Response.ok(UsuariosService.getUsuarioById(idUsuario)).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();
 		}
 	}
 	
+	@GET
+	@Path("/busca")
+	public Response getNome(@QueryParam("nome") String nomeUsuario) {
+		try {
+			return Response.ok(UsuariosService.getUsuarioByName(nomeUsuario)).status(Status.OK).build();
+		} catch (Exception e) {
+			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();
+		}
+	}
 	
 	@POST
-	public Response save(OrdensServicos ordem) {
+	public Response save(Usuarios usuario) {
 		try {
-			return Response.ok(ordemService.saveOrdensServicos(ordem)).status(Status.CREATED).build();
+			return Response.ok(UsuariosService.saveUsuario(usuario)).status(Status.CREATED).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();
 		}
 	}
 	
 	@PUT
-	public Response update(OrdensServicos ordem) {
+	public Response update(Usuarios usuario) {
 		try {
-			return Response.ok(ordemService.atualizarOrdensServicos(ordem)).status(Status.OK).build();
+			return Response.ok(UsuariosService.atualizarUsuario(usuario)).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();
 		}
@@ -65,9 +75,9 @@ public class OrdensServicosResources {
 	
 	@DELETE
 	@Path("{id}")
-	public Response deletar(@PathParam("id") Integer idOrdensServicos) {
+	public Response deletar(@PathParam("id") Integer idUsuario) {
 		try {
-			ordemService.deleteOrdensServicos(idOrdensServicos);
+			UsuariosService.deleteUsuario(idUsuario);
 			return Response.ok(new MensagemResposta("Operação completada com sucesso!!")).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();

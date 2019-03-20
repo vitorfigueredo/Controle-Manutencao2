@@ -1,4 +1,4 @@
-package controle.manuntencao.services;
+package controle.manuntencao2.services;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import controle.manuntencao.entidades.Usuarios;
+import controle.manuntencao2.entidades.Usuarios;
 
 @Stateless
 public class UsuariosServices {

@@ -1,4 +1,4 @@
-package controle.manuntencao.entidades;
+package controle.manuntencao2.entidades;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

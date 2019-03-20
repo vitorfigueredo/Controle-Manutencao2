@@ -1,4 +1,4 @@
-package controle.manuntencao.resources;
+package controle.manuntencao2.resources;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -14,22 +14,22 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import controle.manuntencao.entidades.Clientes;
-import controle.manuntencao.services.ClientesServices;
-import controle.manuntencao.utils.MensagemResposta;
+import controle.manuntencao2.entidades.Equipamentos;
+import controle.manuntencao2.services.EquipamentosServices;
+import controle.manuntencao2.utils.MensagemResposta;
 
-@Path("clientes")
+@Path("equipamentos")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class ClientesResources {
+public class EquipamentosResources {
 	
 	@Inject
-	ClientesServices ClientesService;
+	EquipamentosServices EquipamentosService;
 	
 	@GET
 	public Response getAll() {
 		try {
-			return Response.ok(ClientesService.getTodasClientes()).status(Status.OK).build();
+			return Response.ok(EquipamentosService.getTodasEquipamentos()).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.OK).build();
 		}
@@ -37,9 +37,9 @@ public class ClientesResources {
 	
 	@GET
 	@Path("/{id}")
-	public Response getId(@PathParam("id") Integer idCliente) {
+	public Response getId(@PathParam("id") Integer idEquipamento) {
 		try {
-			return Response.ok(ClientesService.getClienteById(idCliente)).status(Status.OK).build();
+			return Response.ok(EquipamentosService.getEquipamentoById(idEquipamento)).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();
 		}
@@ -47,27 +47,27 @@ public class ClientesResources {
 	
 	@GET
 	@Path("/busca")
-	public Response getNome(@QueryParam("nome") String nomeCliente) {
+	public Response getNome(@QueryParam("nome") String nomeEquipamento) {
 		try {
-			return Response.ok(ClientesService.getClienteByName(nomeCliente)).status(Status.OK).build();
+			return Response.ok(EquipamentosService.getEquipamentoByName(nomeEquipamento)).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();
 		}
 	}
 	
 	@POST
-	public Response save(Clientes cliente) {
+	public Response save(Equipamentos equipamento) {
 		try {
-			return Response.ok(ClientesService.saveCliente(cliente)).status(Status.CREATED).build();
+			return Response.ok(EquipamentosService.saveEquipamento(equipamento)).status(Status.CREATED).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();
 		}
 	}
 	
 	@PUT
-	public Response update(Clientes cliente) {
+	public Response update(Equipamentos equipamento) {
 		try {
-			return Response.ok(ClientesService.atualizarCliente(cliente)).status(Status.OK).build();
+			return Response.ok(EquipamentosService.atualizarEquipamento(equipamento)).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();
 		}
@@ -75,9 +75,9 @@ public class ClientesResources {
 	
 	@DELETE
 	@Path("{id}")
-	public Response deletar(@PathParam("id") Integer idCliente) {
+	public Response deletar(@PathParam("id") Integer idEquipamento) {
 		try {
-			ClientesService.deleteCliente(idCliente);
+			EquipamentosService.deleteEquipamento(idEquipamento);
 			return Response.ok(new MensagemResposta("Operação completada com sucesso!!")).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();

@@ -1,4 +1,4 @@
-package controle.manuntencao.utils;
+package controle.manuntencao2.utils;
 
 public class MensagemResposta {
 	private String mensagem;

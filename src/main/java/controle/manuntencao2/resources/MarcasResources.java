@@ -1,4 +1,4 @@
-package controle.manuntencao.resources;
+package controle.manuntencao2.resources;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -14,22 +14,22 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import controle.manuntencao.entidades.Enderecos;
-import controle.manuntencao.services.EnderecosServices;
-import controle.manuntencao.utils.MensagemResposta;
+import controle.manuntencao2.entidades.Marcas;
+import controle.manuntencao2.services.MarcasServices;
+import controle.manuntencao2.utils.MensagemResposta;
 
-@Path("enderecos")
+@Path("marcas")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class EnderecosResources {
+public class MarcasResources {
 	
 	@Inject
-	EnderecosServices EnderecosService;
+	MarcasServices MarcaService;
 	
 	@GET
 	public Response getAll() {
 		try {
-			return Response.ok(EnderecosService.getTodasEnderecos()).status(Status.OK).build();
+			return Response.ok(MarcaService.getTodasMarcas()).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.OK).build();
 		}
@@ -37,9 +37,9 @@ public class EnderecosResources {
 	
 	@GET
 	@Path("/{id}")
-	public Response getId(@PathParam("id") Integer idEndereco) {
+	public Response getId(@PathParam("id") Integer idMarca) {
 		try {
-			return Response.ok(EnderecosService.getEnderecoById(idEndereco)).status(Status.OK).build();
+			return Response.ok(MarcaService.getMarcaById(idMarca)).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();
 		}
@@ -47,27 +47,27 @@ public class EnderecosResources {
 	
 	@GET
 	@Path("/busca")
-	public Response getNome(@QueryParam("nome") String nomeEndereco) {
+	public Response getNome(@QueryParam("nome") String nomeMarca) {
 		try {
-			return Response.ok(EnderecosService.getEnderecoByCep(nomeEndereco)).status(Status.OK).build();
+			return Response.ok(MarcaService.getMarcaByName(nomeMarca)).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();
 		}
 	}
 	
 	@POST
-	public Response save(Enderecos endereco) {
+	public Response save(Marcas marca) {
 		try {
-			return Response.ok(EnderecosService.saveEndereco(endereco)).status(Status.CREATED).build();
+			return Response.ok(MarcaService.saveMarca(marca)).status(Status.CREATED).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();
 		}
 	}
 	
 	@PUT
-	public Response update(Enderecos endereco) {
+	public Response update(Marcas marca) {
 		try {
-			return Response.ok(EnderecosService.atualizarEndereco(endereco)).status(Status.OK).build();
+			return Response.ok(MarcaService.atualizarMarca(marca)).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();
 		}
@@ -75,9 +75,9 @@ public class EnderecosResources {
 	
 	@DELETE
 	@Path("{id}")
-	public Response deletar(@PathParam("id") Integer idEndereco) {
+	public Response deletar(@PathParam("id") Integer idMarca) {
 		try {
-			EnderecosService.deleteEndereco(idEndereco);
+			MarcaService.deleteMarca(idMarca);
 			return Response.ok(new MensagemResposta("Operação completada com sucesso!!")).status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.ok(new MensagemResposta(e.getMessage())).status(Status.BAD_REQUEST).build();

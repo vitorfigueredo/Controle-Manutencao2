@@ -1,4 +1,4 @@
-package controle.manuntencao.services;
+package controle.manuntencao2.services;
 
 import java.util.List;
 
@@ -6,7 +6,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import controle.manuntencao.entidades.OrdensServicos;
+import controle.manuntencao2.entidades.OrdensServicos;
+
 
 @Stateless
 public class OrdensServicosServices {
@@ -33,8 +34,10 @@ public class OrdensServicosServices {
 	}
 
 	public OrdensServicos saveOrdensServicos(OrdensServicos ordem) throws Exception {
-
 		OrdensServicosManager.persist(ordem);
+		if(ordem == null) {
+			throw new Exception("Problema com a Ordem de Serviço");
+		}
 		return ordem;
 	}
 
