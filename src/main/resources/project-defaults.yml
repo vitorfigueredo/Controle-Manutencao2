@@ -1,0 +1,12 @@
+swarm:
+  datasources:
+    data-sources:
+      controleManutencaoDS:
+        driver-name: postgresql
+        connection-url: jdbc:postgresql://localhost:5432/controleManuntencao
+        user-name: postgres
+        password: d21n88
+        valid-connection-checker-class-name: org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker
+        validate-on-match: true
+        background-validation: false
+        exception-sorter-class-name: org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter
